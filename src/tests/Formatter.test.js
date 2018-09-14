@@ -221,9 +221,48 @@ describe('Formatter', () => {
         expect(result[1].children.length).toBe(0);
 
 
+    });
+    it('should add children to the parent when >1 child', () => {
+        const input = {
+            "0":
+                [{
+                    "id": 10,
+                    "title": "House",
+                    "level": 0,
+                    "children": [],
+                    "parent_id": null
+                }],
+            "1":
+                [{
+                    "id": 12,
+                    "title": "Red Roof",
+                    "level": 1,
+                    "children": [],
+                    "parent_id": 10
+                }, {
+                    "id": 18,
+                    "title": "Blue Roof",
+                    "level": 1,
+                    "children": [],
+                    "parent_id": 10
+                },
+                    {
+                        "id": 13,
+                        "title": "Wall",
+                        "level": 1,
+                        "children": [],
+                        "parent_id": 10
+                    }],
+        };
+
+        const result = getChildren(Formatter(input));
+
+        expect(result[0].children[0].id).toBe(12);
+        expect(result[0].children[1].id).toBe(18);
+        expect(result[0].children[2].id).toBe(13);
+
 
     });
-
 
 
 });
