@@ -18,12 +18,23 @@ describe('Formatter', () => {
                     parents.push(item);
                 }
                 else {
-                    parents.forEach((parent, index) => {
-                        if (item.parent_id === parent.id) {
-                            parents[index].children.push(item);
-                        }
-                        return true;
-                    });
+                   addChildren(parents, item);
+
+                    function addChildren(parents, item) {
+
+                        return parents.map((parent, index) => {
+
+                            if(parent.children.length > 0){
+                                 addChildren(parent.children, item);
+                            }
+
+                            if (item.parent_id === parent.id) {
+                                return parents[index].children.push(item);
+
+                            }
+                        });
+                    }
+
                 }
                 return parents;
             }, parents);
@@ -263,6 +274,98 @@ describe('Formatter', () => {
 
 
     });
+    it('should add children to the correct parent when only 1 child and level = 2', () => {
+        const input = {
+            "0":
+                [{
+                    "id": 10,
+                    "title": "House",
+                    "level": 0,
+                    "children": [],
+                    "parent_id": null
+                }],
+            "1":
+                [{
+                    "id": 12,
+                    "title": "Blue Wall",
+                    "level": 1,
+                    "children": [],
+                    "parent_id": 10
+                }],
+            "2":
+                [{
+                    "id": 17,
+                    "title": "Red Roof",
+                    "level": 2,
+                    "children": [],
+                    "parent_id": 12
+                }]
+        };
+
+        const result = getChildren(Formatter(input));
+
+        expect(result[0].children[0].id).toBe(12);
+        expect(result[0].children[0].children[0].id).toBe(17);
+
+
+    });
+    it('should add children to the correct parent when >1 child and level = 2', () => {
+        const input = {"0":
+                [{"id": 10,
+                    "title": "House",
+                    "level": 0,
+                    "children": [],
+                    "parent_id": null}],
+            "1":
+                [{"id": 12,
+                    "title": "Red Roof",
+                    "level": 1,
+                    "children": [],
+                    "parent_id": 10},
+                    {"id": 18,
+                        "title": "Blue Roof",
+                        "level": 1,
+                        "children": [],
+                        "parent_id": 10},
+                    {"id": 13,
+                        "title": "Wall",
+                        "level": 1,
+                        "children": [],
+                        "parent_id": 10}],
+            "2":
+                [{"id": 17,
+                    "title": "Blue Window",
+                    "level": 2,
+                    "children": [],
+                    "parent_id": 12},
+                    {"id": 16,
+                        "title": "Door",
+                        "level": 2,
+                        "children": [],
+                        "parent_id": 13},
+                    {"id": 15,
+                        "title": "Red Window",
+                        "level": 2,
+                        "children": [],
+                        "parent_id": 12}]};
+
+        const result = getChildren(Formatter(input));
+
+        expect(result[0].children[0].id).toBe(12);
+        expect(result[0].children[1].id).toBe(18);
+        expect(result[0].children[2].id).toBe(13);
+
+        expect(result[0].children[0].children[0].id).toBe(17);
+        expect(result[0].children[0].children[1].id).toBe(15);
+        expect(result[0].children[1].children.length).toBe(0);
+        expect(result[0].children[2].children.length).toBe(1);
+        expect(result[0].children[2].children[0].id).toBe(16);
+
+
+
+
+    });
+
 
 
 });
