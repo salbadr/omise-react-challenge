@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import stringifyObject from 'stringify-object';
 
 
-class JSONViewer extends Component{
-    constructor(props){
+class JSONViewer extends Component {
+    constructor(props) {
         super(props);
-        this.state={input:{}};
+        this.state = {output: ''};
 
     }
 
-    parser=(input)=>{
+    parser = (input) => {
         /*
         Get the json object represented as an array
          */
@@ -54,7 +55,7 @@ class JSONViewer extends Component{
                                     return parents[index].children.push(item);
 
                                 }
-                                else{
+                                else {
                                     return false;
                                 }
                             });
@@ -66,11 +67,46 @@ class JSONViewer extends Component{
             }, []);
         }
     }
-    render(){
-        return(
-            <h2>JSON Viewer</h2>
+
+    handleChange = (e) => {
+        try {
+            const jsonInput = JSON.parse(e.target.value),
+                jsonOutput = this.parser(jsonInput),
+            stringifiedOutput = stringifyObject(jsonOutput);
+
+            this.setState({output:stringifiedOutput});
 
 
+        }
+        catch (err) {
+            console.error("Not properly formatted");
+
+        }
+
+    };
+
+
+    render() {
+        return (
+            <div>
+                <h2>JSON Viewer</h2>
+                <div className="json-container">
+                    <div>
+                        <h3>Input</h3>
+                        <form>
+                            <textarea onChange={this.handleChange} className="json-input"></textarea>
+                        </form>
+                    </div>
+                    <div>
+                        <h3>Output</h3>
+                        <textarea className="json-output" readOnly={true} value={this.state.output}>
+
+
+                        </textarea>
+
+                    </div>
+                </div>
+            </div>
         );
     }
 
