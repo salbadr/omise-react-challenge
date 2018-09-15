@@ -8,7 +8,7 @@ const Navbar =()=>{
             <h1>Omise Challenge</h1>
 
             <ul>
-                    <li><NavLink to="/">JSON Viewer</NavLink></li>
+                    <li><NavLink exact to="/">JSON Viewer</NavLink></li>
                     <li><NavLink to="/repos">Git Repos</NavLink></li>
                 </ul>
 

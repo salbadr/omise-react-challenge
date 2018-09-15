@@ -36,7 +36,7 @@ class Pagination extends Component {
         return (
             <nav className="pagination">
                 <ul >
-                    {this.props.total_pages[this.props.current + 1]? <li onClick={this.getNext}>Next</li> : ''}
+                    {this.props.current < this.props.total_pages.length-1? <li onClick={this.getNext}>Next</li> : ''}
                     {pagination}
                     {this.props.current > 0 ? <li onClick={this.getPrev}>Previous</li> : ''}
 

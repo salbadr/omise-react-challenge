@@ -58,11 +58,16 @@ nav.main ul li {
 
 nav.main ul li a {
 
-    color: #DFFF00;
+    color: black;
     text-decoration: none;
 
 }
 
+nav.main ul li a:hover, nav.main ul li a.active {
+
+    color: #DFFF00;
+
+}
 nav ul {
     list-style: none;
     display: flex;
