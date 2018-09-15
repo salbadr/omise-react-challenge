@@ -52,9 +52,9 @@ class GitRepos extends Component {
         const repo = this.state.page.map((repo) => {
             return (
                 <div className="repo" key={repo.id}>
-                    <p>Name: {repo.name}</p>
-                    <p>Owner: {repo.owner.login}</p>
-                    <p>Url: <a href={repo.url} target="_blank">{repo.url}</a></p>
+                    <p><span>Name:</span>{repo.name}</p>
+                    <p><span>Owner:</span>{repo.owner.login}</p>
+                    <p><span>Url:</span><a href={repo.url} target="_blank">{repo.url}</a></p>
                 </div>
             );
 
@@ -62,7 +62,7 @@ class GitRepos extends Component {
 
 
         return (
-            <div>
+            <div className="container">
                 <h2>Git Repos</h2>
                 <Pagination total_pages={this.total_pages} updatePage={this.updatePage} current={this.state.current}/>
                 <div className="repos-container">

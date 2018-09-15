@@ -88,7 +88,7 @@ class JSONViewer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <h2>JSON Viewer</h2>
                 <div className="json-container">
                     <div>

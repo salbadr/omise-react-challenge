@@ -11,7 +11,6 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <h1>Omise Challenge</h1>
                     <Navbar/>
                     <Route exact path='/' component={JSONViewer}/>
                     <Route path='/repos' component={GitRepos}/>
