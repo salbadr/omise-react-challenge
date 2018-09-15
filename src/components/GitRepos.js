@@ -8,7 +8,6 @@ class GitRepos extends Component {
         this.total_pages = [];
         this.state = {page: [], current:0};
         this.perPage = 10;
-        this.accessToken = '233a74e0ab61a8f088e5d7bfa8c5171abba07d46';
 
     }
 
@@ -23,15 +22,12 @@ class GitRepos extends Component {
         }
     };
 
-    getRepos(since = 0) {
+    getRepos() {
         return axios.request({
             method: 'get',
             url: '/repositories',
-            baseURL: 'https://api.github.com/',
-            params: {
-                since: since,
-                access_token: this.accessToken
-            }
+            baseURL: 'https://api.github.com/'
+
         }).then(res => {
             let temp = [];
 
