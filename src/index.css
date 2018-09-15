@@ -13,9 +13,12 @@ textarea {
 h1{
   text-align: center;
 }
-div.json-container{
+div.json-container, div.repos-container{
   display: flex;
   justify-content: space-between;
+}
+div.repos-container{
+    flex-wrap: wrap;
 }
 nav ul{
   list-style: none;
@@ -25,6 +28,21 @@ nav ul{
 li{
   margin-right: 15px;
 }
+li.current-page{
+    color:red;
+}
 li:last-child{
   margin-right: 0px;
+}
+
+nav ul.pagination li{
+    cursor: pointer;
+
+}
+div.repo{
+    margin:20px;
+    padding:10px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    width:calc(40vw);
 }

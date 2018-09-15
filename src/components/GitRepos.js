@@ -1,16 +1,85 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import axios from 'axios';
+import Pagination from './Pagination';
 
-
-class GitRepos extends Component{
-    constructor(props){
+class GitRepos extends Component {
+    constructor(props) {
         super(props);
-        this.state={repos:[]};
+        this.total_pages = [];
+        this.state = {page: [], current:0};
+        this.perPage = 10;
+        this.accessToken = '233a74e0ab61a8f088e5d7bfa8c5171abba07d46';
+
     }
 
-    render(){
-        return(<p>GitRepos</p>);
+    componentDidMount() {
+        this.getRepos();
+    }
+
+
+    updatePage=(current)=>{
+        if (this.total_pages[current]) {
+            this.setState({page: this.total_pages[current], current:current});
+        }
+    };
+
+    getRepos(since = 0) {
+        return axios.request({
+            method: 'get',
+            url: '/repositories',
+            baseURL: 'https://api.github.com/',
+            params: {
+                since: since,
+                access_token: this.accessToken
+            }
+        }).then(res => {
+            let temp = [];
+
+            for (let i = 0; i < res.data.length; i++) {
+                if (temp.length < this.perPage) {
+                    temp.push(res.data[i]);
+                }
+                else {
+                    this.total_pages.push(temp);
+
+                    temp = [];
+
+                }
+            }
+            this.setState({page: this.total_pages[0]});
+
+        })
+    }
+
+    render() {
+
+        const repo = this.state.page.map((repo) => {
+            return (
+                <div className="repo" key={repo.id}>
+                    <p>Name: {repo.name}</p>
+                    <p>Owner: {repo.owner.login}</p>
+                    <p>Url: <a href={repo.url} target="_blank">{repo.url}</a></p>
+                </div>
+            );
+
+        });
+
+
+        return (
+            <div>
+                <h2>Git Repos</h2>
+                <Pagination total_pages={this.total_pages} updatePage={this.updatePage} current={this.state.current}/>
+                <div className="repos-container">
+                {repo}
+                </div>
+                <Pagination total_pages={this.total_pages} updatePage={this.updatePage} current={this.state.current}/>
+
+
+            </div>
+        );
     }
 
 }
+
 
 export default GitRepos;
