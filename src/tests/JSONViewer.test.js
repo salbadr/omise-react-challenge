@@ -1,9 +1,15 @@
+import React from 'react';
+
 import JSONViewer from '../components/JSONViewer';
 
+import {shallow, configure} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 describe('JSONViewer', () => {
-    const jsonViewer = new JSONViewer();
+
     describe ('parser' , () => {
+        const jsonViewer = new JSONViewer();
+
         it('should extract all root level items and not include any that have wrong level', () => {
             const input = {
                 "0":
@@ -223,6 +229,13 @@ describe('JSONViewer', () => {
 
         });
     });
+    describe('render', ()=>{
+        configure({adapter: new Adapter()});
 
+        it('renders two <textarea />', () => {
+            const wrapper = shallow(<JSONViewer />);
+            expect(wrapper.find('textarea').length).toBe(2);
+        });
+    })
 
 });

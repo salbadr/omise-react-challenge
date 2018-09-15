@@ -72,9 +72,9 @@ class JSONViewer extends Component {
         try {
             const jsonInput = JSON.parse(e.target.value),
                 jsonOutput = this.parser(jsonInput),
-            stringifiedOutput = stringifyObject(jsonOutput);
+                stringifiedOutput = stringifyObject(jsonOutput);
 
-            this.setState({output:stringifiedOutput});
+            this.setState({output: stringifiedOutput});
 
 
         }
@@ -93,16 +93,11 @@ class JSONViewer extends Component {
                 <div className="json-container">
                     <div>
                         <h3>Input</h3>
-                        <form>
-                            <textarea onChange={this.handleChange} className="json-input"></textarea>
-                        </form>
+                        <textarea onChange={this.handleChange} className="json-input"></textarea>
                     </div>
                     <div>
                         <h3>Output</h3>
-                        <textarea className="json-output" readOnly={true} value={this.state.output}>
-
-
-                        </textarea>
+                        <textarea className="json-output" readOnly={true} value={this.state.output}></textarea>
 
                     </div>
                 </div>
