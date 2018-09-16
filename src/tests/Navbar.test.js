@@ -5,6 +5,7 @@ import {shallow, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Navbar from '../components/Navbar';
+
 describe('<Navbar />', () => {
     configure({adapter: new Adapter()});
 

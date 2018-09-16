@@ -9,6 +9,12 @@ class JSONViewer extends Component {
 
     }
 
+    /**
+     * Parses the json input and returns a traversal tree object
+     *
+     * @param input
+     * @returns {Object}
+     */
     parser = (input) => {
         /*
         Get the json object represented as an array
@@ -69,6 +75,7 @@ class JSONViewer extends Component {
     }
 
     handleChange = (e) => {
+        //The input may not be a json so catch errors
         try {
             const jsonInput = JSON.parse(e.target.value),
                 jsonOutput = this.parser(jsonInput),

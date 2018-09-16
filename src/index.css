@@ -2,7 +2,7 @@ body {
     margin: 0px;
     padding: 0;
     font-family: sans-serif;
-    background-color: #DFFF00;
+    background-color: #585858;
 }
 
 div.container {
@@ -16,14 +16,22 @@ textarea {
 
 }
 
-h1 {
+h1, h2 {
     margin: 12px 50px;
-    color: #FF0040;
+    color: #ffff80;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
 
 }
 
 h2{
     text-align: center;
+}
+h3{
+    color: #e68a00;
 }
 
 div.json-container, div.repos-container {
@@ -38,7 +46,7 @@ div.repos-container {
 nav.main {
     display: flex;
     justify-content: space-between;
-    background-color: #FFBF00;
+    background-color: #e68a00;
     height: 50px;
 }
 
@@ -52,6 +60,7 @@ nav.main ul li {
     align-items: center;
     border-left: 1px solid #FF0040;
     padding: 0 20px;
+    color:#585858;
 
 
 }
@@ -65,7 +74,7 @@ nav.main ul li a {
 
 nav.main ul li a:hover, nav.main ul li a.active {
 
-    color: #DFFF00;
+    color: #ffff80;
 
 }
 nav ul {
@@ -74,14 +83,15 @@ nav ul {
     justify-content: flex-end;
 }
 
-li.current-page {
-    color: #FF0040;
+nav.pagination ul li.current-page {
+    color: #ffff80;
 }
 
 
 nav.pagination ul li {
     cursor: pointer;
     padding: 0 5px;
+    color: #e68a00;
 
 }
 

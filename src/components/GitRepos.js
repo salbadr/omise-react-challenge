@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Pagination from './Pagination';
+import settings from '../settings';
 
 class GitRepos extends Component {
     constructor(props) {
@@ -15,30 +16,39 @@ class GitRepos extends Component {
         this.getRepos();
     }
 
-
-    updatePage=(current)=>{
-        if (this.total_pages[current]) {
-            this.setState({page: this.total_pages[current], current:current});
+    /**
+     * Gets the position parameter and sets the page to equal to the corresponding index
+     * in total_pages
+     *
+     * @param position The position in the total_pages array.
+     */
+    updatePage=(position)=>{
+        if (this.total_pages[position]) {
+            this.setState({page: this.total_pages[position], current:position});
         }
     };
 
-    getRepos() {
-        return axios.request({
-            method: 'get',
-            url: '/repositories',
-            baseURL: 'https://api.github.com/'
+    /**
+     * Gets a list of repository, saves them in an internal array. Each index of the
+     * array contains 10 results per page. The index corresponds to the page that is shown
+     *
+     * @returns {Promise<AxiosResponse<any>>}
+     */
 
-        }).then(res => {
-            let temp = [];
+    getRepos() {
+        return axios.get(settings.repositoryUrl)
+            .then(res => {
+            let page = [];
 
             for (let i = 0; i < res.data.length; i++) {
-                if (temp.length < this.perPage) {
-                    temp.push(res.data[i]);
+                //Push results in a page array
+                if (page.length < this.perPage) {
+                    page.push(res.data[i]);
                 }
+                //We have 10 items per page. Push them in total pages array
                 else {
-                    this.total_pages.push(temp);
-
-                    temp = [];
+                    this.total_pages.push(page);
+                    page = [];
 
                 }
             }
@@ -49,6 +59,9 @@ class GitRepos extends Component {
 
     render() {
 
+        /*
+        Generate repo cards
+         */
         const repo = this.state.page.map((repo) => {
             return (
                 <div className="repo" key={repo.id}>

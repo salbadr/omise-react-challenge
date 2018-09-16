@@ -7,10 +7,10 @@ import Pagination from '../components/Pagination';
 describe('<Pagination />', () => {
     configure({adapter: new Adapter()});
 
-
     it('should render 0 <li/> items if total_pages = 0', () => {
         const totalPages=[],
             wrapper = shallow(<Pagination total_pages={totalPages} />);
+
         expect(wrapper.find('li').length).toBe(0);
     });
 
@@ -18,6 +18,7 @@ describe('<Pagination />', () => {
     it('should render three <li/> items if total_pages > 0', () => {
         const totalPages=[1,2,3],
             wrapper = shallow(<Pagination total_pages={totalPages} />);
+
         expect(wrapper.find('li').length).toBe(3);
     });
 
@@ -25,6 +26,7 @@ describe('<Pagination />', () => {
         const totalPages=[1,2,3],
             current = 0,
         wrapper = shallow(<Pagination total_pages={totalPages} current={current} />);
+
         expect(wrapper.find('li').first().text()).toEqual('Next');
         expect(wrapper.find('li').length).toBe(4);
     });
@@ -33,9 +35,9 @@ describe('<Pagination />', () => {
         const totalPages=[1,2,3],
             current = 0,
             wrapper = shallow(<Pagination total_pages={totalPages} current={current} />);
+
         expect(wrapper.find('li').length).toBe(4);
         expect(wrapper.find('li').last().text()).not.toEqual('Previous');
-
     });
 
 
@@ -43,19 +45,18 @@ describe('<Pagination />', () => {
         const totalPages=[1,2,3],
             current = 2,
             wrapper = shallow(<Pagination total_pages={totalPages} current={current} />);
+
         expect(wrapper.find('li').length).toBe(4);
         expect(wrapper.find('li').last().text()).toEqual('Previous');
-
     });
 
     it('should not render `Next` if total_pages > 0 and current > 0 and < total_pages.length-1', () => {
         const totalPages=[1,2,3],
             current = 2,
             wrapper = shallow(<Pagination total_pages={totalPages} current={current} />);
+
         expect(wrapper.find('li').first().text()).not.toEqual('Next');
-
         expect(wrapper.find('li').length).toBe(4);
-
     });
 
     it('should increment current and call updatePage when getNext is called', () => {
@@ -69,7 +70,6 @@ describe('<Pagination />', () => {
         instance.getNext();
         expect(spy).toHaveBeenCalledTimes(1);
         expect(instance.current).toBe(2);
-
     });
 
 
@@ -84,7 +84,6 @@ describe('<Pagination />', () => {
         instance.getPrev();
         expect(spy).toHaveBeenCalledTimes(1);
         expect(instance.current).toBe(0);
-
     });
 
     it('should set current to passed position and call updatePage when getPage is called', () => {
@@ -98,7 +97,6 @@ describe('<Pagination />', () => {
         instance.getPage(2);
         expect(spy).toHaveBeenCalledTimes(1);
         expect(instance.current).toBe(2);
-
     });
 
 
