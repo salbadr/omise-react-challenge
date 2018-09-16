@@ -99,7 +99,7 @@ class JSONViewer extends Component {
                 <h2>JSON Viewer</h2>
                 <div className="json-container">
                     <div>
-                        <h3>Input</h3>
+                        <h3>Input (editable field)</h3>
                         <textarea onChange={this.handleChange} className="json-input"></textarea>
                     </div>
                     <div>
