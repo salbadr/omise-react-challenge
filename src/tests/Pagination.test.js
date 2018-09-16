@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow, configure, mount} from 'enzyme';
+import {shallow, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Pagination from '../components/Pagination';
@@ -87,7 +87,7 @@ describe('<Pagination />', () => {
 
     });
 
-    it('should set current tp passed position and call updatePage when getPage is called', () => {
+    it('should set current to passed position and call updatePage when getPage is called', () => {
         const gitRepo = {updatePage:()=>{}},
             spy = spyOn(gitRepo, 'updatePage'),
             totalPages=[1,2,3],
@@ -100,7 +100,6 @@ describe('<Pagination />', () => {
         expect(instance.current).toBe(2);
 
     });
-
 
 
 });

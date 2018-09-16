@@ -93,7 +93,7 @@ div.repo {
     width: calc(40vw);
     background-color: #fff;
 }
-div.repo span{
+div.repo label{
     color:#9573FF;
     padding-right: 5px;
 

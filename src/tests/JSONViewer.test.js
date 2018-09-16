@@ -1,11 +1,9 @@
 import React from 'react';
-
-import JSONViewer from '../components/JSONViewer';
-
 import {shallow, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import JSONViewer from '../components/JSONViewer';
 
-describe('JSONViewer', () => {
+describe('<JSONViewer/>', () => {
 
     describe ('parser' , () => {
         const jsonViewer = new JSONViewer();
